@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vector Racer Pro - Modular</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <header>
+        <h1>Vector Racer Pro</h1>
+    </header>
+
+    <main>
+        <div class="top-panel">
+            <div class="mode-switcher">
+                <button id="switchToGameModeButton" class="mode-button active-mode">Play</button>
+                <button id="switchToEditorModeButton" class="mode-button">Track Editor</button>
+            </div>
+            <div class="player-management">
+                <label for="addPlayerButton">Players: <span id="playerCount">2</span></label>
+                <button id="addPlayerButton" title="Add Player">+</button>
+                <button id="removePlayerButton" title="Remove Player">-</button>
+            </div>
+            <div class="track-size-management">
+                <label for="trackWidthInput">Width:</label>
+                <input type="number" id="trackWidthInput" value="30" min="10" max="100">
+                <label for="trackHeightInput">Height:</label>
+                <input type="number" id="trackHeightInput" value="20" min="10" max="60">
+                <button id="applyTrackSizeButton">Apply Size</button>
+            </div>
+        </div>
+
+        <div class="game-container">
+            <canvas id="gameCanvas"></canvas> <!-- class "targeting-active" will be added/removed by JS -->
+
+            <div id="gameControls" class="controls-panel">
+                <h2>Game Mode</h2>
+                <div class="player-info">
+                    Current Player: <span id="currentPlayerName"></span>
+                    <span id="currentPlayerColorIndicator" class="color-indicator"></span>
+                </div>
+                <div class="speed-display">
+                    <p>Speed: (X: <span id="currentSpeedX">0</span>, Y: <span id="currentSpeedY">0</span>)</p>
+                    <canvas id="speedVectorCanvas" width="100" height="100"></canvas>
+                </div>
+                <p class="control-label">Acceleration:</p>
+                <div class="acceleration-grid">
+                    <button data-ddx="-1" data-ddy="-1" title="Accelerate Up-Left">↖</button>
+                    <button data-ddx="0"  data-ddy="-1" title="Accelerate Up">↑</button>
+                    <button data-ddx="1"  data-ddy="-1" title="Accelerate Up-Right">↗</button>
+                    <button data-ddx="-1" data-ddy="0" title="Accelerate Left">←</button>
+                    <button data-ddx="0"  data-ddy="0" title="No Change (Coast)">◎</button>
+                    <button data-ddx="1"  data-ddy="0" title="Accelerate Right">→</button>
+                    <button data-ddx="-1" data-ddy="1" title="Accelerate Down-Left">↙</button>
+                    <button data-ddx="0"  data-ddy="1" title="Accelerate Down">↓</button>
+                    <button data-ddx="1"  data-ddy="1" title="Accelerate Down-Right">↘</button>
+                </div>
+                <!-- Targeting Info Panel and Ability buttons will be inserted here by JS -->
+                <button id="hintButton" class="action-button">Hint (<span id="hintsRemaining">3</span>)</button>
+                <button id="resetGameButton" class="action-button">Restart Game</button>
+            </div>
+
+            <div id="editorControls" class="controls-panel" style="display: none;">
+                <h2>Track Editor</h2>
+                <p class="control-label">Select Tile Type:</p>
+                <div class="tile-selector">
+                    <button class="tile-button" data-tile-type="EMPTY" title="Empty (E)">⬜</button>
+                    <button class="tile-button active-tile" data-tile-type="WALL" title="Wall (W)">⬛</button>
+                    <button class="tile-button" data-tile-type="START" title="Start (S)">🟩</button>
+                    <button class="tile-button" data-tile-type="FINISH" title="Finish (F)">🟨</button>
+                </div>
+                <p class="small-text">Click on grid to place. Shift+Click to erase.</p>
+                <p class="small-text">Hotkeys: E, W, S, F.</p>
+                <button id="applyTrackAndPlayButton" class="action-button primary">Apply & Play</button>
+                <button id="resetTrackToDefaultButton" class="action-button">Reset to Default</button>
+                <button id="clearTrackButton" class="action-button">Clear Track</button>
+            </div>
+        </div>
+    </main>
+
+    <div id="message" class="message-overlay" style="display: none;">
+        <!-- Content for game messages and leaderboard will be injected by JavaScript -->
+    </div>
+
+    <script type="module" src="js/main.js"></script>
+</body>
+</html>

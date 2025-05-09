@@ -1,0 +1,484 @@
+:root {
+    --font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
+    --bg-color: #f4f7f6;
+    --panel-bg-color: #ffffff;
+    --text-color: #333333;
+    --text-secondary-color: #555555;
+    --border-color: #e0e0e0;
+    --border-radius: 8px;
+    --primary-color: #007bff;
+    --primary-hover-color: #0056b3;
+    --secondary-color: #6c757d;
+    --secondary-hover-color: #545b62;
+    --success-color: #28a745;
+    --warning-color: #ffc107;
+    --danger-color: #dc3545;
+    --hint-color: #ff9800;
+    --shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    --shadow-light: 0 2px 4px rgba(0,0,0,0.07);
+}
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    font-family: var(--font-family);
+    background-color: var(--bg-color);
+    color: var(--text-color);
+    line-height: 1.6;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    min-height: 100vh;
+    padding: 20px;
+    overflow-x: hidden; /* Prevent horizontal scrollbars if content slightly overflows */
+}
+
+header {
+    width: 100%;
+    max-width: 1200px;
+    margin-bottom: 20px;
+    text-align: center;
+}
+
+h1 {
+    color: var(--primary-color);
+    font-weight: 600;
+}
+
+main {
+    width: 100%;
+    max-width: 1200px;
+}
+
+.top-panel {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 15px;
+    align-items: center;
+    justify-content: space-between;
+    padding: 15px;
+    background-color: var(--panel-bg-color);
+    border-radius: var(--border-radius);
+    box-shadow: var(--shadow-light);
+    margin-bottom: 20px;
+}
+
+.mode-switcher,
+.player-management,
+.track-size-management {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.top-panel label {
+    font-size: 0.9em;
+    color: var(--text-secondary-color);
+}
+
+.top-panel input[type="number"] {
+    width: 60px;
+    padding: 8px;
+    border: 1px solid var(--border-color);
+    border-radius: 4px;
+    text-align: center;
+    font-size: 0.9em;
+}
+
+.top-panel button,
+.mode-button {
+    padding: 8px 12px;
+    font-size: 0.9em;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    background-color: var(--secondary-color);
+    color: white;
+    transition: background-color 0.2s ease;
+}
+.top-panel button:hover,
+.mode-button:hover {
+    background-color: var(--secondary-hover-color);
+}
+.top-panel button:disabled {
+    background-color: #ccc;
+    cursor: not-allowed;
+}
+
+
+.mode-button {
+    background-color: #e9ecef;
+    color: var(--text-color);
+    border: 1px solid var(--border-color);
+}
+.mode-button.active-mode {
+    background-color: var(--primary-color);
+    color: white;
+    border-color: var(--primary-color);
+}
+.mode-button:hover:not(.active-mode) {
+    background-color: #d4dae0;
+}
+
+
+.game-container {
+    display: flex;
+    gap: 20px;
+    align-items: flex-start;
+}
+
+#gameCanvas {
+    border: 1px solid var(--border-color);
+    background-color: #fff; 
+    box-shadow: var(--shadow-light);
+    border-radius: 4px; 
+}
+#gameCanvas.editor-active {
+    cursor: crosshair;
+}
+#gameCanvas.targeting-active {
+    outline: 3px dashed var(--hint-color);
+    outline-offset: -3px; /* Adjust if outline is inside or outside */
+    cursor: crosshair !important; 
+}
+
+
+.controls-panel {
+    background-color: var(--panel-bg-color);
+    padding: 20px;
+    border-radius: var(--border-radius);
+    box-shadow: var(--shadow-light);
+    min-width: 300px; /* Min width for control panel */
+    max-width: 360px; /* Max width to prevent it from getting too wide */
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.controls-panel h2 {
+    font-size: 1.3em;
+    color: var(--primary-color);
+    text-align: center;
+    margin-bottom: 0px;
+}
+
+.player-info {
+    font-weight: 500;
+    text-align: center;
+}
+.color-indicator {
+    display: inline-block;
+    width: 1em;
+    height: 1em;
+    border: 1px solid #888;
+    border-radius: 50%;
+    vertical-align: middle;
+    margin-left: 8px;
+    box-shadow: 0 0 3px rgba(0,0,0,0.2);
+}
+
+.speed-display {
+    text-align: center;
+}
+.speed-display p {
+    margin-bottom: 8px;
+    font-size: 0.9em;
+}
+#speedVectorCanvas {
+    border: 1px solid var(--border-color);
+    background-color: #f8f9fa;
+    border-radius: 4px;
+    display: block; 
+    margin: 0 auto;
+}
+
+.control-label {
+    font-weight: 500;
+    color: var(--text-secondary-color);
+    margin-bottom: -5px; 
+}
+.small-text {
+    font-size: 0.85em;
+    color: var(--text-secondary-color);
+    text-align: center;
+}
+
+.acceleration-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 8px;
+}
+.acceleration-grid button {
+    padding: 12px;
+    font-size: 1.5em; 
+    border: 1px solid var(--border-color);
+    border-radius: 4px;
+    background-color: #f8f9fa;
+    color: var(--text-color);
+    cursor: pointer;
+    transition: background-color 0.2s, box-shadow 0.2s;
+}
+.acceleration-grid button:hover:not(:disabled) {
+    background-color: #e9ecef;
+    box-shadow: 0 0 5px rgba(0,0,0,0.1);
+}
+.acceleration-grid button:disabled {
+    background-color: #e9ecef;
+    color: #aaa;
+    cursor: not-allowed;
+    box-shadow: none;
+}
+
+
+.action-button {
+    padding: 10px 15px;
+    font-size: 1em;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    color: white;
+    transition: background-color 0.2s ease, transform 0.1s ease;
+    width: 100%;
+    text-align: center; /* Default text alignment */
+}
+.action-button:hover:not(:disabled) {
+    transform: translateY(-1px);
+    box-shadow: var(--shadow-light);
+}
+.action-button:active:not(:disabled) {
+    transform: translateY(0px);
+}
+.action-button:disabled {
+    background-color: #ccc !important; 
+    color: #666 !important;
+    cursor: not-allowed;
+    box-shadow: none;
+    transform: none;
+}
+
+.action-button.small-action {
+    padding: 6px 10px;
+    font-size: 0.85em;
+    width: auto; 
+    /* margin-left: 10px; Default, can be overridden by context */
+    background-color: var(--secondary-color);
+}
+.action-button.small-action:hover:not(:disabled) {
+    background-color: var(--secondary-hover-color);
+}
+
+
+#resetGameButton { background-color: var(--warning-color); color: #333; }
+#resetGameButton:hover:not(:disabled) { background-color: #e0a800; }
+
+#hintButton { background-color: var(--hint-color); }
+#hintButton:hover:not(:disabled) { background-color: #ef6c00; }
+
+.tile-selector {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 8px;
+}
+.tile-button {
+    padding: 10px !important;
+    font-size: 1.8em !important;
+    border: 2px solid transparent !important;
+    background-color: #f8f9fa !important;
+    color: var(--text-color) !important;
+    border-radius: 4px !important;
+    cursor: pointer;
+    transition: border-color 0.2s, background-color 0.2s;
+}
+.tile-button.active-tile {
+    border-color: var(--primary-color) !important;
+    background-color: #e6f2ff !important;
+}
+.tile-button:hover:not(.active-tile) {
+    background-color: #e9ecef !important;
+}
+
+#applyTrackAndPlayButton { background-color: var(--success-color); }
+#applyTrackAndPlayButton:hover:not(:disabled) { background-color: #1e7e34; }
+
+#resetTrackToDefaultButton { background-color: var(--secondary-color); }
+#resetTrackToDefaultButton:hover:not(:disabled) { background-color: var(--secondary-hover-color); }
+
+#clearTrackButton { background-color: var(--danger-color); }
+#clearTrackButton:hover:not(:disabled) { background-color: #b02a37; }
+
+
+/* Ability Buttons & Targeting Info Styling */
+.ability-buttons-container {
+    display: flex;
+    flex-direction: column;
+    gap: 8px; /* Reduced gap */
+    margin-top: 10px; 
+    margin-bottom: 10px;
+    width: 100%;
+}
+
+.ability-button { /* Also an .action-button */
+    background-color: var(--primary-color); 
+    font-size: 0.9em;
+    padding: 8px 12px;
+    text-align: left; /* Align icon (if any) and text to the left */
+    display: flex; 
+    align-items: center;
+    /* Inherits other .action-button styles */
+}
+.ability-button:hover:not(:disabled) {
+    background-color: var(--primary-hover-color);
+}
+
+.targeting-info-panel { /* Panel shown in gameControls when targeting */
+    background-color: #fff3cd; /* Light yellow bootstrap info color */
+    color: #664d03; /* Dark yellow text */
+    font-style: italic;
+    font-size: 0.9em;
+    padding: 10px;
+    border: 1px solid #ffeeba; /* Lighter yellow border */
+    border-radius: var(--border-radius);
+    margin-bottom: 10px; /* Space below it if ability buttons are also shown */
+    text-align: center;
+    line-height: 1.4;
+    box-shadow: var(--shadow-light);
+}
+.targeting-info-panel br { /* For cleaner line break if message is long */
+    display: block;
+    margin-bottom: 5px;
+    content: "";
+}
+.targeting-info-panel .action-button.small-action { /* Cancel button within targeting panel */
+    margin-left: 10px;
+    vertical-align: middle; /* Align with text better */
+}
+
+
+.message-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.7); 
+    display: flex;
+    flex-direction: column; 
+    justify-content: center;
+    align-items: center;
+    color: white;
+    font-size: 1.2em; 
+    font-weight: 500;
+    text-align: center;
+    z-index: 1000;
+    padding: 20px; 
+    box-sizing: border-box;
+    backdrop-filter: blur(4px); 
+}
+
+.message-overlay h2 { 
+    margin-bottom: 20px;
+    font-size: 2em; 
+    color: #fff;
+    text-shadow: 1px 1px 3px rgba(0,0,0,0.5);
+}
+
+.message-overlay p { 
+    margin-top: 15px;
+    font-size: 1em; 
+    line-height: 1.5;
+}
+
+.leaderboard-table {
+    width: auto; 
+    min-width: 300px; 
+    max-width: 500px; 
+    margin: 0 auto; 
+    border-collapse: separate; 
+    border-spacing: 0;
+    background-color: rgba(25, 35, 45, 0.85); 
+    border: 1px solid rgba(255,255,255,0.2);
+    border-radius: var(--border-radius);
+    box-shadow: 0 5px 15px rgba(0,0,0,0.4);
+    color: #e0e0e0; 
+    font-size: 0.9em; 
+}
+
+.leaderboard-table th,
+.leaderboard-table td {
+    padding: 12px 18px; 
+    text-align: left;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.15);
+}
+
+.leaderboard-table th {
+    background-color: rgba(0, 0, 0, 0.4); 
+    color: #ffc107; 
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+.leaderboard-table th:first-child { border-top-left-radius: calc(var(--border-radius) - 1px); }
+.leaderboard-table th:last-child { border-top-right-radius: calc(var(--border-radius) - 1px); }
+
+
+.leaderboard-table td:first-child { 
+    text-align: center;
+    font-weight: bold;
+    color: #aaa;
+}
+
+.leaderboard-table tbody tr:last-child td {
+    border-bottom: none;
+}
+.leaderboard-table tbody tr:last-child td:first-child { border-bottom-left-radius: calc(var(--border-radius) - 1px); }
+.leaderboard-table tbody tr:last-child td:last-child { border-bottom-right-radius: calc(var(--border-radius) - 1px); }
+
+.leaderboard-table tbody tr:hover {
+    background-color: rgba(255, 255, 255, 0.06);
+}
+
+
+/* Responsive adjustments */
+@media (max-width: 900px) {
+    .game-container {
+        flex-direction: column;
+        align-items: center;
+    }
+    .controls-panel {
+        width: 100%;
+        max-width: 500px; 
+        margin-top: 20px;
+    }
+}
+@media (max-width: 600px) {
+    .top-panel {
+        flex-direction: column;
+        align-items: stretch; 
+    }
+    .mode-switcher,
+    .player-management,
+    .track-size-management {
+        justify-content: space-between; 
+        width: 100%;
+    }
+    h1 { font-size: 1.8em; }
+    .controls-panel { min-width: unset; } /* Allow control panel to shrink more */
+    .controls-panel h2 { font-size: 1.2em; }
+    
+    .message-overlay { 
+        font-size: 1em; 
+        padding: 15px;
+    }
+    .message-overlay h2 { font-size: 1.8em; }
+    .leaderboard-table { min-width: 260px; max-width: 95%; font-size: 0.85em; }
+    .leaderboard-table th, .leaderboard-table td { padding: 8px 10px; }
+
+    .ability-buttons-container { gap: 8px; }
+    .ability-button { font-size: 0.85em; padding: 7px 10px;}
+    .targeting-info-panel { font-size: 0.85em; padding: 8px; }
+    .targeting-info-panel .action-button.small-action { font-size: 0.8em; padding: 4px 8px; }
+}
