@@ -289,7 +289,7 @@ export class UIManager {
         const endY = centerY + dy * scale;
 
         // Vector line
-        ctx.strokeStyle = 'black';
+        ctx.strokeStyle = getComputedStyle(document.documentElement).getPropertyValue('--ui-text-primary').trim() || '#dadfe8';
         ctx.lineWidth = 2.5;
         ctx.beginPath();
         ctx.moveTo(centerX, centerY);
