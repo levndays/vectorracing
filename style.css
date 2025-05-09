@@ -75,8 +75,8 @@ main {
     max-width: 1200px;
 }
 
-/* --- Top Bar --- */
-.top-bar {
+/* --- Top Panel (was Top Bar) --- */
+.top-panel {
     display: flex;
     flex-wrap: wrap;
     gap: 15px; /* Reduced gap */
@@ -92,28 +92,30 @@ main {
 
 .mode-switcher,
 .player-management,
-.track-size-management {
+.track-size-management,
+.map-selection {
     display: flex;
     align-items: center;
     gap: 8px;
 }
 
-.top-bar label {
-    font-size: 0.85em; /* Pixel fonts often need size adjustments */
+.top-panel label {
+    font-size: 0.85em; 
     color: var(--ui-text-secondary);
-    font-weight: 400; /* Audiowide may not need to be bold */
+    font-weight: 400; 
     text-transform: uppercase;
 }
-.top-bar #playerCount {
+.top-panel #playerCount {
     color: var(--ui-text-primary);
-    font-weight: 700; /* Or use display font if desired */
+    font-weight: 700; 
     background-color: var(--ui-bg-dark);
     padding: 2px 6px;
     border-radius: 3px;
 }
 
-.top-bar input[type="number"] {
-    width: 50px;
+.top-panel input[type="number"],
+.top-panel select {
+    width: 55px; /* select might need more width */
     padding: 5px;
     background-color: var(--ui-bg-dark);
     border: 1px solid var(--ui-border-color);
@@ -127,17 +129,23 @@ main {
     font-size: 0.9em;
     font-family: var(--font-body);
 }
-.top-bar input[type="number"]:focus {
+.top-panel select {
+    text-align-last: center; /* For select text centering */
+    width: auto; /* Allow select to size based on content */
+    min-width: 120px;
+}
+.top-panel input[type="number"]:focus,
+.top-panel select:focus {
     outline: none;
     border-color: var(--ui-accent-primary);
     box-shadow: 0 0 3px var(--ui-accent-primary);
 }
 
 /* --- Button Base Style (Retro Chunky) --- */
-.game-button { /* New base class for all game-style buttons */
+.game-button {
     padding: 8px 12px;
-    font-family: var(--font-body); /* Or var(--font-display) for pixel text */
-    font-size: 0.85em; /* Adjust based on font */
+    font-family: var(--font-body); 
+    font-size: 0.85em; 
     text-transform: uppercase;
     color: var(--button-text-color);
     background-color: var(--button-bg);
@@ -166,63 +174,23 @@ main {
     box-shadow: 1px 1px 0px var(--button-border-dark);
 }
 .game-button:disabled {
-    background-color: var(--ui-disabled-bg);
-    color: var(--ui-disabled-text) !important; /* Ensure override */
-    border-color: var(--ui-disabled-bg) !important; /* Match bg for flat look */
+    background-color: var(--ui-disabled-bg) !important; /* Important to override hover/active */
+    color: var(--ui-disabled-text) !important;
+    border-color: var(--ui-disabled-bg) !important;
     border-top-color: var(--ui-disabled-bg) !important;
     border-left-color: var(--ui-disabled-bg) !important;
     border-bottom-color: var(--ui-disabled-bg) !important;
     border-right-color: var(--ui-disabled-bg) !important;
     cursor: not-allowed;
-    box-shadow: none;
-    opacity: 0.7;
-}
-
-/* Apply .game-button to specific button groups */
-.top-bar button, .mode-button {
-    /* These will now inherit from .game-button if you add the class in HTML */
-    /* Or re-apply specific styles if needed */
-    composes: game-button; /* If using CSS Modules, otherwise copy styles or add class */
-    font-size: 0.8em; /* Top bar buttons slightly smaller */
-    padding: 6px 10px;
-}
-/* For existing structure, let's re-apply explicitly if class not added in HTML */
-.top-bar button, .mode-button {
-    padding: 6px 10px; /* Adjusted padding */
-    font-family: var(--font-body);
-    font-size: 0.8em;
-    text-transform: uppercase;
-    color: var(--button-text-color);
-    background-color: var(--button-bg);
-    border: 1px solid;
-    border-top-color: var(--button-border-light);
-    border-left-color: var(--button-border-light);
-    border-bottom-color: var(--button-border-dark);
-    border-right-color: var(--button-border-dark);
-    border-radius: var(--border-radius);
-    cursor: pointer;
-    transition: background-color 0.1s, transform 0.05s, box-shadow 0.05s;
-    box-shadow: 1px 1px 0px var(--button-border-dark);
-    text-align: center;
-}
-.top-bar button:hover:not(:disabled), .mode-button:hover:not(:disabled) {
-    background-color: var(--ui-bg-light); color: var(--ui-accent-primary);
-}
-.top-bar button:active:not(:disabled), .mode-button:active:not(:disabled) {
-    background-color: var(--ui-bg-dark);
-    border-top-color: var(--button-border-dark); border-left-color: var(--button-border-dark);
-    border-bottom-color: var(--button-border-light); border-right-color: var(--button-border-light);
-    transform: translate(1px, 1px); box-shadow: 0px 0px 0px var(--button-border-dark);
-}
-.top-bar button:disabled, .mode-button:disabled { /* Ensure this has high specificity */
-    background-color: var(--ui-disabled-bg) !important;
-    color: var(--ui-disabled-text) !important;
-    border-color: var(--ui-disabled-bg) !important;
     box-shadow: none !important;
     opacity: 0.7;
-    cursor: not-allowed;
 }
 
+/* Apply .game-button styles to specific button groups & override */
+.top-panel .game-button, .mode-button.game-button {
+    font-size: 0.8em; 
+    padding: 6px 10px;
+}
 
 .mode-button.active-mode {
     background-color: var(--ui-accent-primary);
@@ -234,10 +202,22 @@ main {
     box-shadow: 1px 1px 0px var(--ui-accent-primary-darker), 0 0 5px var(--ui-accent-primary); /* Glow */
 }
 
-
 /* --- Game Container --- */
-.game-container { /* Same */ }
-#gameCanvas { /* Same */ }
+.game-container {
+    display: flex;
+    gap: 20px;
+    flex-wrap: wrap; /* Allow controls to wrap on smaller screens */
+    justify-content: center;
+    align-items: flex-start;
+}
+#gameCanvas {
+    border: 2px solid var(--ui-border-color);
+    background-color: var(--ui-bg-dark); /* Darker canvas bg if needed */
+    image-rendering: pixelated; /* For crisp pixels if not scaled by browser weirdly */
+    image-rendering: -moz-crisp-edges;
+    image-rendering: crisp-edges;
+    box-shadow: var(--shadow-light);
+}
 #gameCanvas.editor-active { border-color: var(--ui-accent-secondary); }
 #gameCanvas.targeting-active { outline: 2px dashed var(--ui-accent-secondary); outline-offset: -2px; cursor: crosshair !important; }
 
@@ -264,8 +244,10 @@ main {
     border: 1px solid var(--ui-border-color); font-size: 0.9em;
 }
 .color-indicator {
+    display: inline-block; /* Ensure it takes space */
     width: 1em; height: 1em; border: 1px solid var(--ui-bg-light);
-    box-shadow: 0 0 5px currentColor; /* Same */
+    box-shadow: 0 0 5px currentColor; 
+    vertical-align: middle; margin-left: 5px;
 }
 .speed-display p { margin-bottom: 8px; font-size: 0.9em; color: var(--ui-text-secondary); font-weight: 400; }
 #speedVectorCanvas {
@@ -281,74 +263,32 @@ main {
 
 /* Acceleration Grid - Retro Buttons */
 .acceleration-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 5px; }
-.acceleration-grid button {
-    /* Apply .game-button styles */
+.acceleration-grid .game-button { /* Inherits .game-button */
     padding: 8px; 
     font-size: 1.6em; /* Emojis might need specific font or size */
-    font-family: var(--font-body); /* Or specific icon font */
-    /* Other .game-button styles will apply if class is added in HTML */
-    /* Explicitly set for now: */
-    color: var(--button-text-color);
-    background-color: var(--button-bg);
-    border: 1px solid;
-    border-top-color: var(--button-border-light); border-left-color: var(--button-border-light);
-    border-bottom-color: var(--button-border-dark); border-right-color: var(--button-border-dark);
-    border-radius: var(--border-radius); cursor: pointer;
-    transition: background-color 0.1s, transform 0.05s, box-shadow 0.05s;
-    box-shadow: 1px 1px 0px var(--button-border-dark);
 }
-.acceleration-grid button:hover:not(:disabled) { background-color: var(--ui-bg-light); color: var(--ui-accent-primary); }
-.acceleration-grid button:active:not(:disabled) {
-    background-color: var(--ui-bg-dark);
-    border-top-color: var(--button-border-dark); border-left-color: var(--button-border-dark);
-    border-bottom-color: var(--button-border-light); border-right-color: var(--button-border-light);
-    transform: translate(1px, 1px); box-shadow: 0px 0px 0px var(--button-border-dark);
-}
-.acceleration-grid button:disabled { /* from .game-button:disabled */
-    background-color: var(--ui-disabled-bg) !important; color: var(--ui-disabled-text) !important;
-    border-color: var(--ui-disabled-bg) !important; box-shadow: none !important; opacity: 0.7; cursor: not-allowed;
-}
-
 
 /* Action Buttons in Controls Panel */
-.controls-panel .action-button { /* Specific to controls panel, inherits .game-button */
-    /* Apply .game-button styles */
+.controls-panel .action-button.game-button { /* Specific to controls panel, inherits .game-button */
     width: 100%;
-    /* Explicitly set for now: */
-    padding: 8px 12px; font-family: var(--font-body); font-size: 0.85em; text-transform: uppercase;
-    color: var(--button-text-color); background-color: var(--button-bg); border: 1px solid;
-    border-top-color: var(--button-border-light); border-left-color: var(--button-border-light);
-    border-bottom-color: var(--button-border-dark); border-right-color: var(--button-border-dark);
-    border-radius: var(--border-radius); cursor: pointer;
-    transition: background-color 0.1s, transform 0.05s, box-shadow 0.05s;
-    box-shadow: 1px 1px 0px var(--button-border-dark); text-align: center;
 }
-.controls-panel .action-button:hover:not(:disabled) { background-color: var(--ui-bg-light); color: var(--ui-accent-primary); }
-.controls-panel .action-button:active:not(:disabled) {
-    background-color: var(--ui-bg-dark);
-    border-top-color: var(--button-border-dark); border-left-color: var(--button-border-dark);
-    border-bottom-color: var(--button-border-light); border-right-color: var(--button-border-light);
-    transform: translate(1px, 1px); box-shadow: 0px 0px 0px var(--button-border-dark);
-}
-/* Disabled state from .game-button:disabled */
 
+#resetGameButton { background-color: var(--ui-accent-secondary); color: var(--ui-bg-dark); /* Adjusted */ } 
+#resetGameButton:hover:not(:disabled) { background-color: #ffc107; border-color: var(--ui-bg-dark); color: var(--ui-bg-dark); } /* Brighter orange */
 
-#resetGameButton { background-color: var(--ui-accent-secondary); color: var(--ui-bg-dark); border-color: var(--ui-bg-dark); } /* Adjusted */
-#resetGameButton:hover:not(:disabled) { background-color: #ffc107; } /* Brighter orange */
-
-#hintButton { background-color: var(--ui-accent-primary); color: var(--ui-bg-dark); border-color: var(--ui-bg-dark);} /* Magenta */
-#hintButton:hover:not(:disabled) { background-color: var(--ui-accent-primary-brighter); }
+#hintButton { background-color: var(--ui-accent-primary); color: var(--ui-bg-dark); } /* Magenta */
+#hintButton:hover:not(:disabled) { background-color: var(--ui-accent-primary-brighter); border-color: var(--ui-bg-dark); color: var(--ui-bg-dark);}
 
 /* Ability Buttons Container & Individual Buttons */
 .ability-buttons-container { display: flex; flex-direction: column; gap: 6px; margin-top: 8px; margin-bottom: 8px; width: 100%;}
-.ability-button { /* Is an .action-button from controls-panel */
+.ability-button.game-button { /* Is an .action-button from controls-panel, also a .game-button */
     text-align: left; display: flex; align-items: center;
     font-size: 0.8em; /* Smaller text for abilities */
     background-color: var(--ui-bg-medium); /* Default ability bg */
     border-color: var(--ui-border-color); /* Use main border color */
     color: var(--ui-text-primary);
 }
-.ability-button:hover:not(:disabled) {
+.ability-button.game-button:hover:not(:disabled) {
     background-color: var(--ui-bg-light);
     border-color: var(--ui-accent-primary); 
     color: var(--ui-accent-primary);
@@ -362,18 +302,16 @@ main {
     margin-bottom: 8px; text-align: center; line-height: 1.3;
 }
 .targeting-info-panel br { display: block; margin-bottom: 4px; content: ""; }
-.targeting-info-panel .action-button.small-action {
-    /* compose: game-button; */ /* If using CSS Modules */
-    padding: 4px 8px; font-family: var(--font-body); font-size: 0.75em; text-transform: uppercase;
-    color: var(--button-text-color); background-color: var(--ui-accent-secondary); border: 1px solid;
+.targeting-info-panel .action-button.small-action.game-button {
+    padding: 4px 8px; font-size: 0.75em; 
+    background-color: var(--ui-accent-secondary); 
     border-top-color: #ffc107; border-left-color: #ffc107;
     border-bottom-color: #e08e00; border-right-color: #e08e00;
-    border-radius: var(--border-radius); cursor: pointer;
-    box-shadow: 1px 1px 0px #e08e00; text-align: center;
+    box-shadow: 1px 1px 0px #e08e00; 
     margin-left: 8px; vertical-align: middle; color: var(--ui-bg-dark);
 }
-.targeting-info-panel .action-button.small-action:hover:not(:disabled) { background-color: #ffca2c; }
-.targeting-info-panel .action-button.small-action:active:not(:disabled) {
+.targeting-info-panel .action-button.small-action.game-button:hover:not(:disabled) { background-color: #ffca2c; color: var(--ui-bg-dark); }
+.targeting-info-panel .action-button.small-action.game-button:active:not(:disabled) {
     transform: translate(1px,1px); box-shadow: 0 0 0 #e08e00;
     border-top-color: #e08e00; border-left-color: #e08e00;
     border-bottom-color: #ffc107; border-right-color: #ffc107;
@@ -383,55 +321,89 @@ main {
 /* Editor Panel Styling */
 #editorControls { /* Same dashboard style */ }
 #editorControls .tile-selector { display: grid; grid-template-columns: repeat(4, 1fr); gap: 5px; }
-#editorControls .tile-button { /* game-button style */
-    padding: 6px !important; font-size: 1.8em !important;
-    color: var(--button-text-color) !important; background-color: var(--button-bg) !important; border: 1px solid !important;
-    border-top-color: var(--button-border-light) !important; border-left-color: var(--button-border-light) !important;
-    border-bottom-color: var(--button-border-dark) !important; border-right-color: var(--button-border-dark) !important;
-    border-radius: var(--border-radius) !important; cursor: pointer !important;
-    box-shadow: 1px 1px 0px var(--button-border-dark) !important;
+#editorControls .tile-button.game-button { 
+    padding: 6px; font-size: 1.8em;
+    /* Base .game-button styles apply. Overrides for active state are below */
 }
-#editorControls .tile-button.active-tile {
-    background-color: var(--ui-accent-primary) !important; color: var(--ui-bg-dark) !important;
-    border-top-color: var(--ui-accent-primary-brighter) !important; border-left-color: var(--ui-accent-primary-brighter) !important;
-    border-bottom-color: var(--ui-accent-primary-darker) !important; border-right-color: var(--ui-accent-primary-darker) !important;
-    box-shadow: 1px 1px 0px var(--ui-accent-primary-darker), 0 0 5px var(--ui-accent-primary) !important;
+#editorControls .tile-button.game-button.active-tile { /* Higher specificity */
+    background-color: var(--ui-accent-primary); color: var(--ui-bg-dark);
+    border-top-color: var(--ui-accent-primary-brighter); border-left-color: var(--ui-accent-primary-brighter);
+    border-bottom-color: var(--ui-accent-primary-darker); border-right-color: var(--ui-accent-primary-darker);
+    box-shadow: 1px 1px 0px var(--ui-accent-primary-darker), 0 0 5px var(--ui-accent-primary);
 }
-#editorControls .tile-button:hover:not(.active-tile):not(:disabled) { background-color: var(--ui-bg-light) !important; color: var(--ui-accent-primary) !important;}
-#editorControls .action-button.primary { /* Apply & Play */
-    background-color: var(--ui-success); color: var(--ui-bg-dark); border-color: var(--ui-bg-dark);
+#editorControls .tile-button.game-button:hover:not(.active-tile):not(:disabled) { 
+    /* Hover from .game-button is fine. If specific needed: */
+    /* background-color: var(--ui-bg-light); color: var(--ui-accent-primary); */
 }
-#editorControls .action-button.primary:hover:not(:disabled) { background-color: #4caf50; }
+#editorControls .action-button.primary.game-button { /* Apply & Play */
+    background-color: var(--ui-success); color: var(--ui-bg-dark);
+}
+#editorControls .action-button.primary.game-button:hover:not(:disabled) { background-color: #4caf50; color: var(--ui-bg-dark); }
 
 
 /* --- Message Overlay --- */
-.message-overlay { /* Same */ }
-.message-overlay h2 { font-family: var(--font-display); color: var(--ui-accent-primary); text-shadow: 1px 1px 0 #000, 0 0 8px var(--ui-accent-primary-darker); }
-.message-overlay p { color: var(--ui-text-secondary); }
-.leaderboard-table { /* Same */ }
-.leaderboard-table th { font-family: var(--font-display); color: var(--ui-accent-primary); }
+.message-overlay { 
+    position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+    background-color: rgba(10, 11, 13, 0.95); /* Darker overlay */
+    display: flex; flex-direction: column; justify-content: center; align-items: center;
+    z-index: 1000; padding: 20px; text-align: center;
+    color: var(--ui-text-primary);
+}
+.message-overlay h2 { font-family: var(--font-display); color: var(--ui-accent-primary); text-shadow: 1px 1px 0 #000, 0 0 8px var(--ui-accent-primary-darker); margin-bottom: 15px; font-size: 1.8em;}
+.message-overlay p { color: var(--ui-text-secondary); margin-bottom: 10px; line-height: 1.6;}
+.leaderboard-table { 
+    margin: 20px auto; border-collapse: collapse; min-width: 80%; max-width: 500px;
+    background-color: var(--ui-bg-medium); border: 1px solid var(--ui-border-color);
+    box-shadow: var(--shadow);
+}
+.leaderboard-table th, .leaderboard-table td { 
+    padding: 8px 12px; border: 1px solid var(--ui-border-color);
+    text-align: left;
+}
+.leaderboard-table th { font-family: var(--font-display); color: var(--ui-accent-primary); background-color: var(--ui-bg-dark); font-size: 0.9em; text-align: center;}
+.leaderboard-table td { color: var(--ui-text-primary); }
 
 
 /* Responsive adjustments */
-@media (max-width: 900px) { /* Same */ }
+@media (max-width: 1200px) { /* Adjust for wider top-panel items */
+    .top-panel {
+        justify-content: space-around; /* Allow more flexible wrapping */
+    }
+}
+
+@media (max-width: 900px) { 
+    .game-container {
+        flex-direction: column;
+        align-items: center; /* Center canvas and controls panel */
+    }
+    #gameCanvas {
+        max-width: 100%; /* Ensure canvas doesn't overflow horizontally */
+        height: auto; /* Maintain aspect ratio based on width, if GRID_SIZE allows */
+    }
+    .controls-panel {
+        max-width: 90%; /* Allow controls panel to be wider relative to screen */
+        min-width: 0; /* Remove min-width for more flexibility */
+    }
+}
 @media (max-width: 600px) {
     body { padding: 8px; }
     h1 { font-size: 1.8em; }
-    .top-bar { flex-direction: column; align-items: stretch; gap: 8px; padding: 8px; }
-    .top-bar label { font-size: 0.8em;}
-    .top-bar input[type="number"] { width: 45px; font-size: 0.85em; }
-    .top-bar button, .mode-button { font-size: 0.75em; padding: 5px 8px;}
+    .top-panel { flex-direction: column; align-items: stretch; gap: 10px; padding: 10px; }
+    .top-panel > div { justify-content: space-between; } /* Space out items in each row */
+    .top-panel label { font-size: 0.8em;}
+    .top-panel input[type="number"], .top-panel select { width: auto; flex-grow: 1; font-size: 0.85em; }
+    .top-panel .game-button { font-size: 0.75em; padding: 5px 8px;}
     
-    .controls-panel { padding: 12px; gap: 10px; min-width: 280px; } /* Allow more shrink */
+    .controls-panel { padding: 12px; gap: 10px; width: 100%; max-width: 100%; } 
     .controls-panel h2 { font-size: 1.1em; }
-    .acceleration-grid button { font-size: 1.4em; padding: 6px; }
-    .controls-panel .action-button { font-size: 0.8em; padding: 7px 10px; }
-    .ability-button { font-size: 0.75em; padding: 6px 8px;}
+    .acceleration-grid .game-button { font-size: 1.4em; padding: 6px; }
+    .controls-panel .action-button.game-button { font-size: 0.8em; padding: 7px 10px; }
+    .ability-button.game-button { font-size: 0.75em; padding: 6px 8px;}
     .targeting-info-panel { font-size: 0.75em; padding: 6px; }
-    .targeting-info-panel .action-button.small-action { font-size: 0.7em; padding: 3px 6px; }
+    .targeting-info-panel .action-button.small-action.game-button { font-size: 0.7em; padding: 3px 6px; }
 
     .message-overlay { font-size: 0.9em; padding: 10px; }
     .message-overlay h2 { font-size: 1.5em; margin-bottom: 12px; }
-    .leaderboard-table { min-width: 90%; font-size: 0.8em; }
+    .leaderboard-table { min-width: 95%; font-size: 0.8em; }
     .leaderboard-table th, .leaderboard-table td { padding: 6px 8px; }
 }
