@@ -1,6 +1,6 @@
 export const GRID_SIZE = 20;
-export const DEFAULT_TRACK_WIDTH = 30;
-export const DEFAULT_TRACK_HEIGHT = 20;
+// export const DEFAULT_TRACK_WIDTH = 30; // Will be set by selected map
+// export const DEFAULT_TRACK_HEIGHT = 20; // Will be set by selected map
 export const MIN_TRACK_SIZE = 10;
 export const MAX_TRACK_WIDTH = 100;
 export const MAX_TRACK_HEIGHT = 60;

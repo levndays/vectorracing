@@ -5,11 +5,11 @@
     --font-body: 'Audiowide', sans-serif; /* Retro-tech body font */
     --font-display: 'Press Start 2P', cursive; /* Pixel font for titles/displays */
 
-    --ui-bg-dark: #16181d; /* Slightly adjusted dark background */
+    --ui-bg-dark: #16181d; 
     --ui-bg-medium: #22262e;
     --ui-bg-light: #313640;
-    --ui-border-color: #404550; /* For general borders */
-    --ui-text-primary: #dadfe8;   /* Light text for dark backgrounds */
+    --ui-border-color: #404550; 
+    --ui-text-primary: #dadfe8;   
     --ui-text-secondary: #9096a0;
     
     /* --- MAGENTA ACCENT --- */
@@ -17,20 +17,20 @@
     --ui-accent-primary-darker: #cc00cc;
     --ui-accent-primary-brighter: #ff33ff;
 
-    --ui-accent-secondary: #ffae42; /* Orange accent for warnings/hints - kept for now */
-    --ui-success: #3ddc84; /* Brighter green */
+    --ui-accent-secondary: #ffae42; /* Orange accent for warnings/hints/tutorial highlight */
+    --ui-success: #3ddc84; 
     --ui-danger: #F44336;
     --ui-disabled-bg: #202329;
     --ui-disabled-text: #4c515c;
 
-    --border-radius: 4px; /* Sharper corners */
+    --border-radius: 4px; 
     --shadow: 0 3px 5px rgba(0, 0, 0, 0.4);
     --shadow-light: 0 1px 3px rgba(0,0,0,0.3);
 
     /* Button Specifics */
     --button-bg: var(--ui-bg-medium);
     --button-border-light: var(--ui-bg-light);
-    --button-border-dark: #111317; /* Darker for button bevel */
+    --button-border-dark: #111317; 
     --button-text-color: var(--ui-text-primary);
 }
 
@@ -42,7 +42,7 @@
 
 body {
     font-family: var(--font-body);
-    background-color: #0a0b0d; /* Even darker page background */
+    background-color: #0a0b0d; 
     color: var(--ui-text-primary);
     line-height: 1.5;
     display: flex;
@@ -63,9 +63,9 @@ header {
 h1 {
     font-family: var(--font-display);
     color: var(--ui-accent-primary);
-    font-weight: 400; /* Press Start 2P is inherently bold */
-    font-size: 2.2em; /* Pixel fonts often look better slightly smaller or much larger */
-    text-shadow: 0 0 8px var(--ui-accent-primary-darker), 2px 2px 0px #000; /* Pixel shadow */
+    font-weight: 400; 
+    font-size: 2.2em; 
+    text-shadow: 0 0 8px var(--ui-accent-primary-darker), 2px 2px 0px #000; 
     letter-spacing: 1px;
     padding: 5px 0;
 }
@@ -75,17 +75,17 @@ main {
     max-width: 1200px;
 }
 
-/* --- Top Panel (was Top Bar) --- */
+/* --- Top Panel --- */
 .top-panel {
     display: flex;
     flex-wrap: wrap;
-    gap: 15px; /* Reduced gap */
+    gap: 15px; 
     align-items: center;
-    justify-content: center; /* Center content if it wraps less */
+    justify-content: center; 
     padding: 8px 12px;
     background-color: rgba(0,0,0, 0.5); 
     border: 2px solid var(--ui-border-color);
-    border-top-color: var(--ui-bg-light); /* Lighter top border for depth */
+    border-top-color: var(--ui-bg-light); 
     margin-bottom: 20px;
     border-radius: var(--border-radius);
 }
@@ -98,6 +98,15 @@ main {
     align-items: center;
     gap: 8px;
 }
+/* Optional: Style for explicit tutorial start button if added later
+.top-panel #startTutorialButton {
+    background-color: var(--ui-accent-secondary);
+    color: var(--ui-bg-dark);
+}
+.top-panel #startTutorialButton:hover:not(:disabled) {
+    background-color: #ffc107;
+}
+*/
 
 .top-panel label {
     font-size: 0.85em; 
@@ -115,7 +124,7 @@ main {
 
 .top-panel input[type="number"],
 .top-panel select {
-    width: 55px; /* select might need more width */
+    width: 55px; 
     padding: 5px;
     background-color: var(--ui-bg-dark);
     border: 1px solid var(--ui-border-color);
@@ -130,8 +139,8 @@ main {
     font-family: var(--font-body);
 }
 .top-panel select {
-    text-align-last: center; /* For select text centering */
-    width: auto; /* Allow select to size based on content */
+    text-align-last: center; 
+    width: auto; 
     min-width: 120px;
 }
 .top-panel input[type="number"]:focus,
@@ -157,7 +166,7 @@ main {
     border-radius: var(--border-radius);
     cursor: pointer;
     transition: background-color 0.1s ease-in-out, transform 0.05s ease-in-out, box-shadow 0.05s ease-in-out;
-    box-shadow: 2px 2px 0px var(--button-border-dark); /* Drop shadow */
+    box-shadow: 2px 2px 0px var(--button-border-dark); 
     text-align: center;
 }
 .game-button:hover:not(:disabled) {
@@ -174,7 +183,7 @@ main {
     box-shadow: 1px 1px 0px var(--button-border-dark);
 }
 .game-button:disabled {
-    background-color: var(--ui-disabled-bg) !important; /* Important to override hover/active */
+    background-color: var(--ui-disabled-bg) !important; 
     color: var(--ui-disabled-text) !important;
     border-color: var(--ui-disabled-bg) !important;
     border-top-color: var(--ui-disabled-bg) !important;
@@ -186,7 +195,6 @@ main {
     opacity: 0.7;
 }
 
-/* Apply .game-button styles to specific button groups & override */
 .top-panel .game-button, .mode-button.game-button {
     font-size: 0.8em; 
     padding: 6px 10px;
@@ -199,21 +207,21 @@ main {
     border-left-color: var(--ui-accent-primary-brighter);
     border-bottom-color: var(--ui-accent-primary-darker);
     border-right-color: var(--ui-accent-primary-darker);
-    box-shadow: 1px 1px 0px var(--ui-accent-primary-darker), 0 0 5px var(--ui-accent-primary); /* Glow */
+    box-shadow: 1px 1px 0px var(--ui-accent-primary-darker), 0 0 5px var(--ui-accent-primary); 
 }
 
 /* --- Game Container --- */
 .game-container {
     display: flex;
     gap: 20px;
-    flex-wrap: wrap; /* Allow controls to wrap on smaller screens */
+    flex-wrap: wrap; 
     justify-content: center;
     align-items: flex-start;
 }
 #gameCanvas {
     border: 2px solid var(--ui-border-color);
-    background-color: var(--ui-bg-dark); /* Darker canvas bg if needed */
-    image-rendering: pixelated; /* For crisp pixels if not scaled by browser weirdly */
+    background-color: var(--ui-bg-dark); 
+    image-rendering: pixelated; 
     image-rendering: -moz-crisp-edges;
     image-rendering: crisp-edges;
     box-shadow: var(--shadow-light);
@@ -230,7 +238,7 @@ main {
     border: 2px solid var(--ui-border-color);
     border-top-color: var(--ui-bg-light);
     box-shadow: var(--shadow), 0 0 8px rgba(0,0,0,0.4) inset; 
-    min-width: 300px; max-width: 340px; /* Slightly narrower */
+    min-width: 300px; max-width: 340px; 
     display: flex; flex-direction: column; gap: 15px; 
 }
 .controls-panel h2 {
@@ -244,14 +252,14 @@ main {
     border: 1px solid var(--ui-border-color); font-size: 0.9em;
 }
 .color-indicator {
-    display: inline-block; /* Ensure it takes space */
+    display: inline-block; 
     width: 1em; height: 1em; border: 1px solid var(--ui-bg-light);
     box-shadow: 0 0 5px currentColor; 
     vertical-align: middle; margin-left: 5px;
 }
 .speed-display p { margin-bottom: 8px; font-size: 0.9em; color: var(--ui-text-secondary); font-weight: 400; }
 #speedVectorCanvas {
-    border: 1px solid var(--ui-border-color); background-color: rgba(0,0,0,0.4); /* Darker */
+    border: 1px solid var(--ui-border-color); background-color: rgba(0,0,0,0.4); 
     border-radius: var(--border-radius); margin: 0 auto;
     box-shadow: 0 0 3px var(--ui-border-color) inset;
 }
@@ -261,31 +269,28 @@ main {
 }
 .small-text { font-size: 0.75em; color: var(--ui-text-secondary); text-align: center; opacity: 0.7; }
 
-/* Acceleration Grid - Retro Buttons */
 .acceleration-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 5px; }
-.acceleration-grid .game-button { /* Inherits .game-button */
+.acceleration-grid .game-button { 
     padding: 8px; 
-    font-size: 1.6em; /* Emojis might need specific font or size */
+    font-size: 1.6em; 
 }
 
-/* Action Buttons in Controls Panel */
-.controls-panel .action-button.game-button { /* Specific to controls panel, inherits .game-button */
+.controls-panel .action-button.game-button { 
     width: 100%;
 }
 
-#resetGameButton { background-color: var(--ui-accent-secondary); color: var(--ui-bg-dark); /* Adjusted */ } 
-#resetGameButton:hover:not(:disabled) { background-color: #ffc107; border-color: var(--ui-bg-dark); color: var(--ui-bg-dark); } /* Brighter orange */
+#resetGameButton { background-color: var(--ui-accent-secondary); color: var(--ui-bg-dark); } 
+#resetGameButton:hover:not(:disabled) { background-color: #ffc107; border-color: var(--ui-bg-dark); color: var(--ui-bg-dark); } 
 
-#hintButton { background-color: var(--ui-accent-primary); color: var(--ui-bg-dark); } /* Magenta */
+#hintButton { background-color: var(--ui-accent-primary); color: var(--ui-bg-dark); } 
 #hintButton:hover:not(:disabled) { background-color: var(--ui-accent-primary-brighter); border-color: var(--ui-bg-dark); color: var(--ui-bg-dark);}
 
-/* Ability Buttons Container & Individual Buttons */
 .ability-buttons-container { display: flex; flex-direction: column; gap: 6px; margin-top: 8px; margin-bottom: 8px; width: 100%;}
-.ability-button.game-button { /* Is an .action-button from controls-panel, also a .game-button */
+.ability-button.game-button { 
     text-align: left; display: flex; align-items: center;
-    font-size: 0.8em; /* Smaller text for abilities */
-    background-color: var(--ui-bg-medium); /* Default ability bg */
-    border-color: var(--ui-border-color); /* Use main border color */
+    font-size: 0.8em; 
+    background-color: var(--ui-bg-medium); 
+    border-color: var(--ui-border-color); 
     color: var(--ui-text-primary);
 }
 .ability-button.game-button:hover:not(:disabled) {
@@ -294,7 +299,6 @@ main {
     color: var(--ui-accent-primary);
 }
 
-/* Targeting Info Panel in Controls */
 .targeting-info-panel { 
     background-color: rgba(0,0,0,0.3); color: var(--ui-accent-secondary);
     font-style: normal; font-size: 0.8em; padding: 8px;
@@ -317,25 +321,19 @@ main {
     border-bottom-color: #ffc107; border-right-color: #ffc107;
 }
 
-
 /* Editor Panel Styling */
-#editorControls { /* Same dashboard style */ }
+#editorControls { }
 #editorControls .tile-selector { display: grid; grid-template-columns: repeat(4, 1fr); gap: 5px; }
 #editorControls .tile-button.game-button { 
     padding: 6px; font-size: 1.8em;
-    /* Base .game-button styles apply. Overrides for active state are below */
 }
-#editorControls .tile-button.game-button.active-tile { /* Higher specificity */
+#editorControls .tile-button.game-button.active-tile { 
     background-color: var(--ui-accent-primary); color: var(--ui-bg-dark);
     border-top-color: var(--ui-accent-primary-brighter); border-left-color: var(--ui-accent-primary-brighter);
     border-bottom-color: var(--ui-accent-primary-darker); border-right-color: var(--ui-accent-primary-darker);
     box-shadow: 1px 1px 0px var(--ui-accent-primary-darker), 0 0 5px var(--ui-accent-primary);
 }
-#editorControls .tile-button.game-button:hover:not(.active-tile):not(:disabled) { 
-    /* Hover from .game-button is fine. If specific needed: */
-    /* background-color: var(--ui-bg-light); color: var(--ui-accent-primary); */
-}
-#editorControls .action-button.primary.game-button { /* Apply & Play */
+#editorControls .action-button.primary.game-button { 
     background-color: var(--ui-success); color: var(--ui-bg-dark);
 }
 #editorControls .action-button.primary.game-button:hover:not(:disabled) { background-color: #4caf50; color: var(--ui-bg-dark); }
@@ -344,7 +342,7 @@ main {
 /* --- Message Overlay --- */
 .message-overlay { 
     position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-    background-color: rgba(10, 11, 13, 0.95); /* Darker overlay */
+    background-color: rgba(10, 11, 13, 0.95); 
     display: flex; flex-direction: column; justify-content: center; align-items: center;
     z-index: 1000; padding: 20px; text-align: center;
     color: var(--ui-text-primary);
@@ -364,32 +362,91 @@ main {
 .leaderboard-table td { color: var(--ui-text-primary); }
 
 
+/* --- Tutorial Panel Styling --- */
+#tutorialMessagePanel {
+    position: fixed;
+    bottom: 10px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 90%;
+    max-width: 700px;
+    background-color: var(--ui-bg-medium);
+    color: var(--ui-text-primary);
+    padding: 15px 20px;
+    border-radius: var(--border-radius);
+    border: 2px solid var(--ui-accent-primary);
+    z-index: 1001; /* Above message overlay if both are shown, though typically not */
+    box-shadow: 0 -2px 15px rgba(0,0,0,0.5), 0 0 10px var(--ui-accent-primary-darker);
+    text-align: left; /* Instructions can be longer */
+    font-size: 0.9em;
+    display: none; /* Initially hidden */
+}
+#tutorialMessagePanel .tutorial-content {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+#tutorialMessagePanel p {
+    margin: 0;
+    line-height: 1.6;
+}
+#tutorialMessagePanel p b { /* Style for bold tags in tutorial text */
+    color: var(--ui-accent-secondary);
+    font-weight: normal; /* Audiowide is already boldish */
+}
+#tutorialMessagePanel .tutorial-panel-button { /* For the Next button inside tutorial panel */
+    align-self: flex-end; /* Position button to the right */
+    padding: 6px 12px;
+    font-size: 0.8em;
+    background-color: var(--ui-accent-primary);
+    color: var(--ui-bg-dark);
+}
+#tutorialMessagePanel .tutorial-panel-button:hover:not(:disabled) {
+    background-color: var(--ui-accent-primary-brighter);
+}
+
+/* --- Tutorial Highlight Styling --- */
+.tutorial-highlight {
+    outline: 3px dashed var(--ui-accent-secondary) !important;
+    outline-offset: 2px;
+    box-shadow: 0 0 12px var(--ui-accent-secondary), 0 0 20px var(--ui-accent-secondary) !important;
+    transition: outline 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
+    border-radius: var(--border-radius); /* Ensure outline is visible around corners */
+    position: relative; /* Helps with z-index if needed for complex layouts */
+    z-index: 1002; /* Make sure highlight is on top */
+}
+/* Specificity boost if needed for some elements */
+.acceleration-grid .game-button.tutorial-highlight {
+    /* Add specific overrides if outline doesn't appear well */
+}
+
+
 /* Responsive adjustments */
-@media (max-width: 1200px) { /* Adjust for wider top-panel items */
+@media (max-width: 1200px) { 
     .top-panel {
-        justify-content: space-around; /* Allow more flexible wrapping */
+        justify-content: space-around; 
     }
 }
 
 @media (max-width: 900px) { 
     .game-container {
         flex-direction: column;
-        align-items: center; /* Center canvas and controls panel */
+        align-items: center; 
     }
     #gameCanvas {
-        max-width: 100%; /* Ensure canvas doesn't overflow horizontally */
-        height: auto; /* Maintain aspect ratio based on width, if GRID_SIZE allows */
+        max-width: 100%; 
+        height: auto; 
     }
     .controls-panel {
-        max-width: 90%; /* Allow controls panel to be wider relative to screen */
-        min-width: 0; /* Remove min-width for more flexibility */
+        max-width: 90%; 
+        min-width: 0; 
     }
 }
 @media (max-width: 600px) {
     body { padding: 8px; }
     h1 { font-size: 1.8em; }
     .top-panel { flex-direction: column; align-items: stretch; gap: 10px; padding: 10px; }
-    .top-panel > div { justify-content: space-between; } /* Space out items in each row */
+    .top-panel > div { justify-content: space-between; } 
     .top-panel label { font-size: 0.8em;}
     .top-panel input[type="number"], .top-panel select { width: auto; flex-grow: 1; font-size: 0.85em; }
     .top-panel .game-button { font-size: 0.75em; padding: 5px 8px;}
@@ -406,4 +463,15 @@ main {
     .message-overlay h2 { font-size: 1.5em; margin-bottom: 12px; }
     .leaderboard-table { min-width: 95%; font-size: 0.8em; }
     .leaderboard-table th, .leaderboard-table td { padding: 6px 8px; }
+
+    #tutorialMessagePanel {
+        font-size: 0.8em;
+        padding: 10px 15px;
+        bottom: 5px; /* Closer to bottom on small screens */
+        border-width: 1px;
+    }
+    #tutorialMessagePanel .tutorial-panel-button {
+        padding: 5px 10px;
+        font-size: 0.75em;
+    }
 }

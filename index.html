@@ -33,6 +33,8 @@
                 <label for="mapSelector">Map:</label>
                 <select id="mapSelector"></select>
             </div>
+            <!-- Future: Button to explicitly start tutorial -->
+            <!-- <button id="startTutorialButton" class="game-button">Start Tutorial</button> -->
         </div>
 
         <div class="game-container">
@@ -94,6 +96,14 @@
 
     <div id="message" class="message-overlay" style="display: none;">
         <!-- Content for game messages and leaderboard will be injected by JavaScript -->
+    </div>
+
+    <!-- Tutorial Message Panel -->
+    <div id="tutorialMessagePanel" style="display: none;">
+        <div class="tutorial-content">
+            <p id="tutorialInstructionText"></p>
+            <button id="tutorialNextButton" class="game-button tutorial-panel-button" style="display: none;">Next</button>
+        </div>
     </div>
 
     <script type="module" src="js/main.js"></script>
